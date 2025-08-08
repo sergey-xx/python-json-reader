@@ -4,7 +4,7 @@ from filehandler import get_handler
 from configs import configure_argument_parser
 from models import Room, Student
 
-DIR = Path(__file__).resolve().parent / 'files'
+DIR = Path(__file__).resolve().parent
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
@@ -23,7 +23,7 @@ def main():
         room.match_students(students)
     kwargs = {'root_tag': 'rooms'} if args.output_format == 'xml' else {}
     result_handler = get_handler(
-        DIR / f'{args.output_filename}.{args.output_format}',
+        DIR / f'{args.output_filename}',
         **kwargs
     )
     data = [room.to_dict() for room in rooms]

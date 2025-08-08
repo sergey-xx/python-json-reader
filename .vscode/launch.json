@@ -12,7 +12,7 @@
             "args": [
                 "-s", "students.json",
                 "-r", "rooms.json",
-                "-o", "result",
+                "-o", "result.json",
                 "-f", "json"
             ],
         },
@@ -24,7 +24,7 @@
             "args": [
                 "-s", "students.json",
                 "-r", "rooms.json",
-                "-o", "result",
+                "-o", "result.xml",
                 "-f", "xml"
             ],
         }

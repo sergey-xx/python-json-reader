@@ -1,9 +1,14 @@
 # python-json-reader
 JSON Reader
-
-For exmaple 
-
 Combines the data into a list of rooms, where each room includes the students assigned to it.
+
+### Installing
+
+```bash
+pip install -r requirements.txt 
 ```
-main.py -f1 students.json -f2 rooms.json -a1 room -a2 id
+### Using
+```bash
+python main.py  -s students.json -r rooms.json -o result.json -f json
+python main.py  -s students.json -r rooms.json -o result.xml -f xml
 ```
