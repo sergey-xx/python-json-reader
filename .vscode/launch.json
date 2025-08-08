@@ -5,15 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Main File",
+            "name": "Python Debugger: JSON",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "args": [
-                "-f1", "students.json",
-                "-f2", "rooms.json",
-                "-a1", "room",
-                "-a2", "id"
+                "-s", "students.json",
+                "-r", "rooms.json",
+                "-o", "result",
+                "-f", "json"
+            ],
+        },
+        {
+            "name": "Python Debugger: XML",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "args": [
+                "-s", "students.json",
+                "-r", "rooms.json",
+                "-o", "result",
+                "-f", "xml"
             ],
         }
     ]
