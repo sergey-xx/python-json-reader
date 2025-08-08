@@ -1,7 +1,7 @@
 import argparse
 
 
-def configure_argument_parser():
+def configure_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description='Matcher of json-files')
     parser.add_argument(
         '-s',

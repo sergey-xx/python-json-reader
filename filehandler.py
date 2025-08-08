@@ -17,28 +17,28 @@ def register_handler(format_name: str):
     return decorator
 
 
-class AbstractWriterMixin(ABC):
-
-    @abstractmethod
-    def write_file(self, data: dict | list):
-        ...
-
-
-class AbstractReaderMixin(ABC):
-
-    @abstractmethod
-    def read_file(self) -> dict | list:
-        ...
-
-
 @dataclass
 class AbstractHandler(ABC):
 
     path: Path
 
 
+class AbstractReader(AbstractHandler, ABC):
+
+    @abstractmethod
+    def read_file(self) -> dict | list:
+        ...
+
+
+class AbstractWriter(AbstractHandler, ABC):
+
+    @abstractmethod
+    def write_file(self, data: dict | list):
+        ...
+
+
 @register_handler('json')
-class JsonHandler(AbstractReaderMixin, AbstractWriterMixin, AbstractHandler):
+class JsonHandler(AbstractReader, AbstractWriter):
 
     def read_file(self) -> dict | list:
         with open(self.path, 'r') as file:
@@ -50,7 +50,7 @@ class JsonHandler(AbstractReaderMixin, AbstractWriterMixin, AbstractHandler):
 
 
 @register_handler('xml')
-class XMLHandler(AbstractWriterMixin, AbstractHandler):
+class XMLHandler(AbstractWriter):
 
     root_tag: str
 
@@ -80,10 +80,12 @@ class XMLHandler(AbstractWriterMixin, AbstractHandler):
         return dom.toprettyxml(indent="  ")
 
 
-def get_handler_class(format: str) -> Type[AbstractHandler]:
+def get_handler_class(format: str) -> Type[AbstractWriter]:
+    if format not in HANDLER_REGISTRY:
+        raise ValueError(f'`{format}` isn`t supported')
     return HANDLER_REGISTRY[format]
 
 
-def get_handler(path: Path, *args, **kwargs) -> AbstractHandler:
+def get_handler(path: Path, *args, **kwargs) -> AbstractWriter:
     format = path.name.split('.')[-1]
     return get_handler_class(format)(path, *args, **kwargs)
